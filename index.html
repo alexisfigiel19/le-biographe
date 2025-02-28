@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Biographe - Assistant IA</title>
+    <title>Le Biographe - Assistant IA de Radio France</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
+            --rf-blue: #1B207F;
+            --rf-blue-light: #2929A3;
+            --rf-dark: #111130;
             --light-bg: #f8f9fa;
-            --dark-bg: #343a40;
             --text-color: #333;
             --light-text: #f8f9fa;
             --border-radius: 8px;
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] {
+            --light-bg: #1E1E35;
+            --text-color: #eaeaea;
+            --light-text: #ffffff;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
         
         * {
@@ -29,15 +33,17 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            background: var(--light-bg);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.8;
             min-height: 100vh;
             padding: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 30px auto;
             background: white;
             border-radius: var(--border-radius);
@@ -45,30 +51,108 @@
             overflow: hidden;
         }
         
+        [data-theme="dark"] .container {
+            background: var(--rf-dark);
+        }
+        
         header {
-            background: var(--primary-color);
+            background: var(--rf-blue);
             color: var(--light-text);
             padding: 25px 30px;
-            border-bottom: 3px solid var(--secondary-color);
             text-align: center;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            height: 50px;
+            margin-right: 10px;
         }
         
         header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
+            font-size: 2.4rem;
+            margin-bottom: 8px;
             font-weight: 600;
         }
         
         header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            opacity: 0.95;
             max-width: 700px;
             margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
         }
         
         .chat-container {
-            padding: 20px;
+            padding: 30px;
             background-color: white;
+        }
+        
+        [data-theme="dark"] .chat-container {
+            background-color: var(--rf-dark);
+            color: var(--light-text);
+        }
+        
+        .disclaimer-container {
+            background-color: #f8f4e5;
+            border-left: 4px solid #f0c040;
+            color: #856404;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        [data-theme="dark"] .disclaimer-container {
+            background-color: #332e1a;
+            color: #e6cc80;
+        }
+        
+        .info-container {
+            background-color: #e1f5fe;
+            border-left: 4px solid #4fc3f7;
+            color: #0277bd;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        [data-theme="dark"] .info-container {
+            background-color: #1a2a33;
+            color: #81d4fa;
+        }
+        
+        .disclaimer-icon, .info-icon {
+            font-size: 1.4rem;
+            margin-right: 15px;
+            margin-top: 2px;
         }
         
         .iframe-container {
@@ -78,6 +162,7 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
         }
         
         iframe {
@@ -87,107 +172,164 @@
             background: white;
         }
         
-        .prompt-section {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+        [data-theme="dark"] iframe {
+            background: #2d2d3a;
         }
         
-        .toggle-button {
+        .button-section {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .instructions-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 12px 20px;
-            background-color: var(--secondary-color);
+            padding: 14px 24px;
+            background-color: var(--rf-blue);
             color: white;
             border: none;
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
             transition: var(--transition);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
-        .toggle-button:hover {
-            background-color: #2980b9;
+        .instructions-button:hover {
+            background-color: var(--rf-blue-light);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
-        .export-button {
-            background-color: var(--accent-color);
-        }
-        
-        .export-button:hover {
-            background-color: #c0392b;
-        }
-        
-        .toggle-button i {
-            font-size: 1rem;
+        .instructions-button i {
+            font-size: 1.1rem;
             transition: var(--transition);
         }
         
-        #promptContainer {
+        /* Styles pour la modale d'instructions */
+        .modal-overlay {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
             background-color: white;
-            padding: 25px;
-            border: 1px solid #e1e4e8;
-            margin-top: 20px;
-            text-align: left;
-            font-size: 0.95rem;
-            white-space: pre-wrap;
-            max-height: 500px;
-            overflow-y: auto;
+            padding: 30px;
             border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             box-shadow: var(--box-shadow);
+            position: relative;
         }
         
-        #promptContainer h3 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+        [data-theme="dark"] .modal-content {
+            background-color: #232336;
+            color: var(--light-text);
         }
         
-        #promptContainer p {
-            margin-bottom: 15px;
-            line-height: 1.6;
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--rf-blue);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s;
         }
         
-        #promptContainer ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
+        .modal-close:hover {
+            background-color: rgba(0, 0, 0, 0.1);
         }
         
-        #promptContainer li {
-            margin-bottom: 10px;
+        [data-theme="dark"] .modal-close {
+            color: #a0a0ff;
+        }
+        
+        [data-theme="dark"] .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        #promptContainerModal h3 {
+            color: var(--rf-blue);
+            border-bottom: 2px solid var(--rf-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            padding-right: 30px; /* Espace pour le bouton de fermeture */
+        }
+        
+        [data-theme="dark"] #promptContainerModal h3 {
+            color: #a0a0ff;
+            border-bottom-color: #a0a0ff;
+        }
+        
+        #promptContainerModal p {
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+        
+        #promptContainerModal ul {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        #promptContainerModal li {
+            margin-bottom: 12px;
         }
         
         footer {
             text-align: center;
-            padding: 20px;
-            background: var(--primary-color);
+            padding: 25px;
+            background: var(--rf-blue);
             color: var(--light-text);
-            font-size: 0.9rem;
-            border-top: 3px solid var(--secondary-color);
+            font-size: 1rem;
         }
         
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 15px;
+            }
+            
             .container {
                 margin: 15px auto;
             }
             
             header {
-                padding: 15px 20px;
+                padding: 20px;
             }
             
             header h1 {
                 font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            .chat-container {
+                padding: 20px;
             }
             
             .iframe-container {
@@ -196,203 +338,181 @@
             
             #promptContainer {
                 padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .instructions-button {
+                padding: 12px 20px;
+                font-size: 1rem;
             }
         }
         
         @media (max-width: 480px) {
             body {
-                padding: 10px;
+                padding: 5px;
+                font-size: 14px;
             }
             
             header h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             
             header p {
-                font-size: 0.95rem;
+                font-size: 1rem;
+            }
+            
+            .chat-container {
+                padding: 15px;
             }
             
             .iframe-container {
                 height: 400px;
             }
+            
+            .logo {
+                height: 40px;
+            }
+            
+            .disclaimer-container, .info-container {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
     <div class="container">
         <header>
-            <h1>Le Biographe - Assistant IA</h1>
-            <p>L'assistant de la direction de la documentation de Radio France qui aide à la rédaction des biographies.</p>
+            <button class="theme-toggle" aria-label="Changer de thème" onclick="toggleTheme()" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon" style="display: none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 15px;">
+                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                    <line x1="16" y1="8" x2="2" y2="22"></line>
+                    <line x1="17.5" y1="15" x2="9" y2="15"></line>
+                </svg>
+                <h1>Le Biographe</h1>
+            </div>
+            <p>L'assistant de la Direction de la documentation et métadonnées de Radio France qui aide à la rédaction des biographies</p>
         </header>
         
         <div class="chat-container">
+            <div class="disclaimer-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="min-width: 24px; margin-right: 15px;">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div>Le contenu généré par l'IA peut être erroné. Veuillez vérifier les informations communiquées avant leur utilisation</div>
+            </div>
+            
+            <div class="info-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="min-width: 24px; margin-right: 15px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <div>Pour initier une conversation avec l'assistant, vous devez utiliser un mot déclencheur du type : "bonjour", "salut", "hello", etc.</div>
+            </div>
+            
+            <!-- Bouton pour afficher les instructions -->
+            <div class="button-section">
+                <button class="instructions-button" onclick="togglePrompt()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Afficher les instructions de l'assistant
+                </button>
+            </div>
+            
             <!-- Intégration de l'assistant Copilot Studio -->
             <div class="iframe-container">
                 <iframe src="https://web.powerva.microsoft.com/environments/Default-1d643b07-8cf5-4e2d-ad1e-86d6b948fc3b/bots/crff4_leBiographe/webchat?__version__=2"></iframe>
             </div>
             
-            <!-- Section pour le prompt system -->
-            <div class="prompt-section">
-                <button class="toggle-button" onclick="togglePrompt()">
-                    <i class="fas fa-book"></i> Afficher le prompt system
-                </button>
-                <button class="toggle-button export-button" onclick="exportConversation()">
-                    <i class="fas fa-file-export"></i> Exporter discussion
-                </button>
-            </div>
-            
-            <div id="promptContainer">
-                <h3>Prompt System (Lecture seule)</h3>
+    <!-- Modal pour les instructions -->
+    <div class="modal-overlay" id="instructionsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeInstructionsModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div id="promptContainerModal">
+                <h3>Instructions de l'assistant</h3>
                 <p>Tu vas rédiger une biographie sur la base exclusive des connaissances qui te sont communiquées.</p>
+                
                 <p>Voici quelques règles à respecter :</p>
                 <ul>
                     <li>Construction classique d'une biographie, avec une construction en autant de paragraphes que nécessaires, en fonction de la durée de vie de la personne et de ses éléments biographiques. Mais il n'y a aucune contrainte absolue de forme.</li>
-                    <li>Les intertitres, quand il y en a, sont là pour guider la lecture et correspondent aux grands jalons biographiques, avec un détail significatif et propre à la personne dont il est question, pour éviter les poncifs répétitifs du genre "Une enfance heureuse", "Une adolescence difficile", etc.</li>
+                    <li>Les intertitres, quand il y en a, sont là pour guider la lecture et correspondent aux grands jalons biographiques, avec un détail significatif et propre à la personne dont il est question, pour éviter sans tomber dans les poncifs répétitifs du genre "Une enfance heureuse", "Une adolescence difficile", "Le roman de la maturité", etc.</li>
                     <li>La nationalité doit être indiquée dans sa fonction (acteur français plutôt qu'acteur).</li>
                     <li>Préciser Dates et lieux de naissance / mort.</li>
                     <li>Dans la rédaction : Pas de parti pris, du factuel rien que du factuel.</li>
-                    <li>Indiquer les grandes étapes de la carrière / vie, si possible en paragraphes avec des intertitres SEO compatibles.</li>
+                    <li>Indiquer les grandes étapes de la carrière / vie, si possible en para avec des intertitres SEO compatibles.</li>
                     <li>Nul besoin d'être exhaustif.</li>
-                    <li>Maillage interne et externe important avec des pages de taxonomie adaptées.</li>
+                    <li>Maillage - entrant et sortant, c'est important - avec pages de taxo qui vont bien.</li>
                     <li>Pas de lien hypertexte vers un site officiel, ou un compte d'un réseau social.</li>
                     <li>Pas de rebond dans le texte.</li>
-                    <li>À la fin de ta biographie : rédige un paragraphe intitulé "Sources" dans lequel tu indiques le nom des documents, leur date, le média, que tu as utilisé pour rédiger la bio. Présente ce paragraphe sous forme de bullet points.</li>
+                    <li>A la fin de ta biographie : rédige un paragraphe intitulé "Sources" dans lequel tu indiques le nom des documents, leur date, le média, que tu as utilisé pour rédiger la bio. Présente ce paragraphe sous forme de bullet point.</li>
                 </ul>
             </div>
         </div>
+    </div>
+        </div>
         
         <footer>
-            &copy; 2025 Le Biographe - Un assistant IA pour la rédaction de biographies
+            &copy; 2025 Radio France - Direction de la documentation
         </footer>
     </div>
 
     <script>
         function togglePrompt() {
-            var promptDiv = document.getElementById("promptContainer");
-            var button = document.querySelector(".toggle-button:not(.export-button)");
-            
-            if (promptDiv.style.display === "none" || promptDiv.style.display === "") {
-                promptDiv.style.display = "block";
-                button.innerHTML = '<i class="fas fa-times"></i> Masquer le prompt system';
-            } else {
-                promptDiv.style.display = "none";
-                button.innerHTML = '<i class="fas fa-book"></i> Afficher le prompt system';
+            document.getElementById("instructionsModal").style.display = "flex";
+        }
+        
+        function closeInstructionsModal() {
+            document.getElementById("instructionsModal").style.display = "none";
+        }
+        
+        // Fermer la modale si on clique en dehors
+        window.onclick = function(event) {
+            const modal = document.getElementById('instructionsModal');
+            if (event.target === modal) {
+                closeInstructionsModal();
             }
         }
         
-        function exportConversation() {
-            // Afficher un message de préparation
-            const statusMsg = document.createElement('div');
-            statusMsg.style.position = 'fixed';
-            statusMsg.style.top = '20px';
-            statusMsg.style.left = '50%';
-            statusMsg.style.transform = 'translateX(-50%)';
-            statusMsg.style.padding = '10px 20px';
-            statusMsg.style.background = 'rgba(0,0,0,0.7)';
-            statusMsg.style.color = 'white';
-            statusMsg.style.borderRadius = '5px';
-            statusMsg.style.zIndex = '9999';
-            statusMsg.textContent = 'Préparation de l\'export PDF...';
-            document.body.appendChild(statusMsg);
+        function toggleTheme() {
+            const body = document.body;
+            const moonIcon = document.querySelector('.moon-icon');
+            const sunIcon = document.querySelector('.sun-icon');
             
-            // Utiliser setTimeout pour laisser le temps au message de s'afficher
-            setTimeout(() => {
-                try {
-                    // Obtenir le contenu de l'iframe
-                    const iframe = document.querySelector('iframe');
-                    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
-                    
-                    // Cibler le conteneur de conversation dans l'iframe
-                    // Note: Les sélecteurs exacts peuvent varier selon la structure du chat
-                    const conversationContainer = iframeContent.querySelector('.webchat__basic-transcript');
-                    
-                    if (!conversationContainer) {
-                        statusMsg.textContent = 'Impossible de trouver la conversation. Veuillez réessayer.';
-                        setTimeout(() => {
-                            document.body.removeChild(statusMsg);
-                        }, 3000);
-                        return;
-                    }
-                    
-                    // Créer une copie du contenu pour ne pas perturber l'original
-                    const contentClone = conversationContainer.cloneNode(true);
-                    
-                    // Créer un conteneur temporaire dans la page principale
-                    const tempContainer = document.createElement('div');
-                    tempContainer.style.position = 'absolute';
-                    tempContainer.style.left = '-9999px';
-                    tempContainer.style.top = '-9999px';
-                    tempContainer.appendChild(contentClone);
-                    document.body.appendChild(tempContainer);
-                    
-                    // Style pour le PDF
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        * { font-family: Arial, sans-serif; }
-                        .message { margin-bottom: 15px; padding: 10px; border-radius: 5px; }
-                        .user-message { background-color: #f1f0f0; text-align: right; }
-                        .bot-message { background-color: #e3f2fd; }
-                    `;
-                    tempContainer.appendChild(style);
-                    
-                    // Obtenir la date pour le nom du fichier
-                    const today = new Date();
-                    const dateStr = today.toISOString().slice(0, 10);
-                    
-                    // Générer le PDF
-                    html2canvas(tempContainer, { 
-                        scale: 2,
-                        logging: false,
-                        useCORS: true
-                    }).then(canvas => {
-                        // Mettre à jour le message
-                        statusMsg.textContent = 'Génération du PDF en cours...';
-                        
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdf = new jspdf.jsPDF({
-                            orientation: 'portrait',
-                            unit: 'mm',
-                            format: 'a4'
-                        });
-                        
-                        // Calculer les dimensions pour ajuster à la page A4
-                        const imgWidth = 210; // A4 width in mm
-                        const imgHeight = canvas.height * imgWidth / canvas.width;
-                        
-                        // Ajouter un titre
-                        pdf.setFontSize(16);
-                        pdf.text('Conversation avec Le Biographe', 105, 15, { align: 'center' });
-                        pdf.setFontSize(12);
-                        pdf.text(`Exporté le ${today.toLocaleDateString('fr-FR')}`, 105, 22, { align: 'center' });
-                        
-                        // Ajouter l'image de la conversation
-                        pdf.addImage(imgData, 'PNG', 0, 30, imgWidth, imgHeight);
-                        
-                        // Télécharger le PDF
-                        pdf.save(`Le_Biographe_Conversation_${dateStr}.pdf`);
-                        
-                        // Nettoyer
-                        document.body.removeChild(tempContainer);
-                        statusMsg.textContent = 'PDF téléchargé avec succès!';
-                        setTimeout(() => {
-                            document.body.removeChild(statusMsg);
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Erreur lors de la génération du PDF:', err);
-                        statusMsg.textContent = 'Erreur lors de la génération du PDF. Veuillez réessayer.';
-                        setTimeout(() => {
-                            document.body.removeChild(statusMsg);
-                        }, 3000);
-                        document.body.removeChild(tempContainer);
-                    });
-                } catch (error) {
-                    console.error('Erreur:', error);
-                    statusMsg.textContent = 'Erreur lors de l\'exportation. Veuillez réessayer.';
-                    setTimeout(() => {
-                        document.body.removeChild(statusMsg);
-                    }, 3000);
-                }
-            }, 100);
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
         }
     </script>
 </body>
