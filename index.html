@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Biographe - Assistant IA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #promptContainer {
+            display: none;
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Le Biographe - Assistant IA</h2>
+        <p>Rédige des biographies de personnes à partir des informations fournies.</p>
+        
+        <!-- Intégration de l'assistant Copilot Studio -->
+        <iframe src="https://web.powerva.microsoft.com/environments/Default-1d643b07-8cf5-4e2d-ad1e-86d6b948fc3b/bots/crff4_iada/webchat?__version__=2"></iframe>
+
+        <!-- Bouton pour afficher le prompt system -->
+        <button onclick="togglePrompt()">Afficher le prompt system</button>
+
+        <div id="promptContainer">
+            <h3>Prompt System (Lecture seule)</h3>
+            <p>« Le Biographe est un assistant conversationnel conçu pour rédiger des biographies personnalisées à partir des informations fournies par l’utilisateur. »</p>
+        </div>
+    </div>
+
+    <script>
+        function togglePrompt() {
+            var promptDiv = document.getElementById("promptContainer");
+            if (promptDiv.style.display === "none") {
+                promptDiv.style.display = "block";
+            } else {
+                promptDiv.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
