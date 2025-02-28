@@ -47,6 +47,7 @@
             margin-top: 10px;
             text-align: left;
             font-size: 14px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -56,14 +57,37 @@
         <p>Rédige des biographies de personnes à partir des informations fournies.</p>
         
         <!-- Intégration de l'assistant Copilot Studio -->
-        <iframe src="https://web.powerva.microsoft.com/environments/Default-1d643b07-8cf5-4e2d-ad1e-86d6b948fc3b/bots/crff4_iada/webchat?__version__=2"></iframe>
+        <iframe src="https://web.powerva.microsoft.com/environments/Default-1d643b07-8cf5-4e2d-ad1e-86d6b948fc3b/bots/crff4_leBiographe/webchat?__version__=2"></iframe>
 
         <!-- Bouton pour afficher le prompt system -->
         <button onclick="togglePrompt()">Afficher le prompt system</button>
 
         <div id="promptContainer">
             <h3>Prompt System (Lecture seule)</h3>
-            <p>« Le Biographe est un assistant conversationnel conçu pour rédiger des biographies personnalisées à partir des informations fournies par l’utilisateur. »</p>
+            <p>
+                Tu vas rédiger une biographie sur la base exclusive des connaissances qui te sont communiquées.
+
+                Voici quelques règles à respecter :
+
+                - Construction classique d'une biographie, avec une construction en autant de paragraphes que nécessaires,
+                  en fonction de la durée de vie de la personne et de ses éléments biographiques. Mais il n'y a aucune
+                  contrainte absolue de forme.
+                - Les intertitres, quand il y en a, sont là pour guider la lecture et correspondent aux grands jalons
+                  biographiques, avec un détail significatif et propre à la personne dont il est question, pour éviter
+                  les poncifs répétitifs du genre "Une enfance heureuse", "Une adolescence difficile", etc.
+                - La nationalité doit être indiquée dans sa fonction (acteur français plutôt qu'acteur).
+                - Préciser Dates et lieux de naissance / mort.
+                - Dans la rédaction : Pas de parti pris, du factuel rien que du factuel.
+                - Indiquer les grandes étapes de la carrière / vie, si possible en paragraphes avec des intertitres SEO compatibles.
+                - Nul besoin d'être exhaustif.
+                - Maillage interne et externe important avec des pages de taxonomie adaptées.
+                - Pas de lien hypertexte vers un site officiel, ou un compte d'un réseau social.
+                - Pas de rebond dans le texte.
+
+                - À la fin de ta biographie : rédige un paragraphe intitulé "Sources" dans lequel tu indiques
+                  le nom des documents, leur date, le média, que tu as utilisé pour rédiger la bio.
+                  Présente ce paragraphe sous forme de bullet points.
+            </p>
         </div>
     </div>
 
