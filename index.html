@@ -182,43 +182,41 @@
             margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
         }
         
-        .instructions-button, .tests-button {
+        .action-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 14px 24px;
+            padding: 14px 18px;
             border: none;
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
             transition: var(--transition);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             color: white;
-        }
-        
-        .instructions-button {
             background-color: var(--rf-blue);
+            white-space: nowrap;
+            text-align: center;
+            width: fit-content;
+            min-width: 180px;
         }
         
-        .tests-button {
-            background-color: var(--rf-blue);
-        }
-        
-        .instructions-button:hover, .tests-button:hover {
+        .action-button:hover {
             background-color: var(--rf-blue-light);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
-        .instructions-button i, .tests-button i {
-            font-size: 1.1rem;
+        .action-button i, .action-button svg {
+            font-size: 1rem;
             transition: var(--transition);
+            flex-shrink: 0;
         }
         
         /* Styles pour la modale d'instructions */
@@ -349,6 +347,19 @@
             font-size: 1rem;
         }
         
+        @media (max-width: 920px) {
+            .button-section {
+                justify-content: space-around;
+                gap: 10px;
+            }
+            
+            .action-button {
+                font-size: 0.95rem;
+                padding: 12px 16px;
+                width: 48%;
+            }
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -384,15 +395,19 @@
                 font-size: 1rem;
             }
             
-            .instructions-button, .tests-button {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-            
             .button-section {
                 flex-direction: column;
                 align-items: center;
-                gap: 15px;
+                gap: 12px;
+                margin: 15px 0;
+            }
+            
+            .action-button {
+                width: 100%;
+                max-width: 350px;
+                padding: 12px 18px;
+                font-size: 0.95rem;
+                min-width: unset;
             }
         }
         
@@ -425,6 +440,11 @@
             .disclaimer-container, .info-container {
                 padding: 12px 15px;
                 font-size: 0.95rem;
+            }
+            
+            .action-button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -480,15 +500,15 @@
             
             <!-- Boutons d'action -->
             <div class="button-section">
-                <button class="instructions-button" onclick="togglePrompt()">
+                <button class="action-button" onclick="togglePrompt()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                     </svg>
-                    Afficher les instructions de l'assistant
+                    <span>Instructions de l'assistant</span>
                 </button>
                 
-                <button class="tests-button" onclick="openTestsDocument()">
+                <button class="action-button" onclick="openTestsDocument()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
@@ -496,7 +516,15 @@
                         <line x1="16" y1="17" x2="8" y2="17"></line>
                         <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
-                    Afficher les retours des tests
+                    <span>Retours des tests</span>
+                </button>
+                
+                <button class="action-button" onclick="openHistoryDocument()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>Historique des instructions</span>
                 </button>
             </div>
             
@@ -602,6 +630,10 @@
         
         function openTestsDocument() {
             window.open("https://rfonline.sharepoint.com/:w:/r/sites/UG-PRIV-DirectionDeLaDocumentation/_layouts/15/Doc.aspx?sourcedoc=%7B3FB4F549-4388-44FE-9A48-F9301C0F8FF4%7D&file=Tests%20des%20prompts.docx&fromShare=true&action=default&mobileredirect=true", "_blank");
+        }
+        
+        function openHistoryDocument() {
+            window.open("https://rfonline-my.sharepoint.com/:w:/r/personal/alexis_figiel_radiofrance_com/_layouts/15/Doc.aspx?sourcedoc=%7B50A3B474-C8B2-4210-9B9D-56C224FA54A4%7D&file=Document.docx&action=editnew&mobileredirect=true&wdPreviousSession=120a7362-b64a-7e3d-4222-016018bd737d&wdNewAndOpenCt=1741345837448&wdo=4&wdOrigin=wacFileNew&wdPreviousCorrelation=aaabf98c-f114-450f-8516-86ea71668270&wdnd=1&wdTpl=blankNew", "_blank");
         }
         
         // Fermer la modale si on clique en dehors
