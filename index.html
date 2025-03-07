@@ -10,6 +10,8 @@
             --rf-blue: #1B207F;
             --rf-blue-light: #2929A3;
             --rf-dark: #111130;
+            --rf-red: #e74c3c;
+            --rf-red-light: #c0392b;
             --light-bg: #f8f9fa;
             --text-color: #333;
             --light-text: #f8f9fa;
@@ -180,16 +182,16 @@
             margin-top: 25px;
             display: flex;
             justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         
-        .instructions-button {
+        .instructions-button, .tests-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             padding: 14px 24px;
-            background-color: var(--rf-blue);
-            color: white;
             border: none;
             border-radius: var(--border-radius);
             cursor: pointer;
@@ -197,15 +199,24 @@
             font-weight: 500;
             transition: var(--transition);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: white;
         }
         
-        .instructions-button:hover {
+        .instructions-button {
+            background-color: var(--rf-blue);
+        }
+        
+        .tests-button {
+            background-color: var(--rf-blue);
+        }
+        
+        .instructions-button:hover, .tests-button:hover {
             background-color: var(--rf-blue-light);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
-        .instructions-button i {
+        .instructions-button i, .tests-button i {
             font-size: 1.1rem;
             transition: var(--transition);
         }
@@ -270,17 +281,36 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
         
-        #promptContainerModal h3 {
+        #promptContainerModal h2 {
             color: var(--rf-blue);
             border-bottom: 2px solid var(--rf-blue);
             padding-bottom: 12px;
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             padding-right: 30px; /* Espace pour le bouton de fermeture */
         }
         
-        [data-theme="dark"] #promptContainerModal h3 {
+        #promptContainerModal h3 {
+            color: var(--rf-blue);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        #promptContainerModal h4 {
+            color: var(--rf-blue);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        [data-theme="dark"] #promptContainerModal h2,
+        [data-theme="dark"] #promptContainerModal h3,
+        [data-theme="dark"] #promptContainerModal h4 {
             color: #a0a0ff;
+        }
+        
+        [data-theme="dark"] #promptContainerModal h2 {
             border-bottom-color: #a0a0ff;
         }
         
@@ -296,6 +326,19 @@
         
         #promptContainerModal li {
             margin-bottom: 12px;
+        }
+        
+        #promptContainerModal .example {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid var(--rf-blue);
+        }
+        
+        [data-theme="dark"] #promptContainerModal .example {
+            background-color: #2a2a40;
+            border-left-color: #a0a0ff;
         }
         
         footer {
@@ -341,9 +384,15 @@
                 font-size: 1rem;
             }
             
-            .instructions-button {
+            .instructions-button, .tests-button {
                 padding: 12px 20px;
                 font-size: 1rem;
+            }
+            
+            .button-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
         }
         
@@ -429,7 +478,7 @@
                 <div>Pour initier une conversation avec l'assistant, vous devez utiliser un mot déclencheur du type : "bonjour", "salut", "hello", etc.</div>
             </div>
             
-            <!-- Bouton pour afficher les instructions -->
+            <!-- Boutons d'action -->
             <div class="button-section">
                 <button class="instructions-button" onclick="togglePrompt()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
@@ -437,6 +486,17 @@
                         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                     </svg>
                     Afficher les instructions de l'assistant
+                </button>
+                
+                <button class="tests-button" onclick="openTestsDocument()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Afficher les retours des tests
                 </button>
             </div>
             
@@ -455,23 +515,72 @@
                 </svg>
             </button>
             <div id="promptContainerModal">
-                <h3>Instructions de l'assistant</h3>
-                <p>Tu vas rédiger une biographie sur la base exclusive des connaissances qui te sont communiquées.</p>
+                <h2>Instructions de l'assistant</h2>
                 
-                <p>Voici quelques règles à respecter :</p>
+                <p>Tu es "Le biographe", un assistant spécialisé dans la rédaction ou l'aide à la rédaction de biographies pour la direction de la documentation de Radio France. Tu rédiges exclusivement à partir des informations issues des documents indexés qui te sont fournis via la fonction file search (vector store). Tu n'utilises jamais d'informations extérieures.</p>
+                
+                <p>Respecte impérativement les consignes suivantes :</p>
+                
+                <h3>Structure générale des biographies :</h3>
+                
+                <h4>1. Paragraphe introductif (résumé précis) :</h4>
                 <ul>
-                    <li>Construction classique d'une biographie, avec une construction en autant de paragraphes que nécessaires, en fonction de la durée de vie de la personne et de ses éléments biographiques. Mais il n'y a aucune contrainte absolue de forme.</li>
-                    <li>Les intertitres, quand il y en a, sont là pour guider la lecture et correspondent aux grands jalons biographiques, avec un détail significatif et propre à la personne dont il est question, pour éviter sans tomber dans les poncifs répétitifs du genre "Une enfance heureuse", "Une adolescence difficile", "Le roman de la maturité", etc.</li>
-                    <li>La nationalité doit être indiquée dans sa fonction (acteur français plutôt qu'acteur).</li>
-                    <li>Préciser Dates et lieux de naissance / mort.</li>
-                    <li>Dans la rédaction : Pas de parti pris, du factuel rien que du factuel.</li>
-                    <li>Indiquer les grandes étapes de la carrière / vie, si possible en para avec des intertitres SEO compatibles.</li>
-                    <li>Nul besoin d'être exhaustif.</li>
-                    <li>Maillage - entrant et sortant, c'est important - avec pages de taxo qui vont bien.</li>
-                    <li>Pas de lien hypertexte vers un site officiel, ou un compte d'un réseau social.</li>
-                    <li>Pas de rebond dans le texte.</li>
-                    <li>A la fin de ta biographie : rédige un paragraphe intitulé "Sources" dans lequel tu indiques le nom des documents, leur date, le média, que tu as utilisé pour rédiger la bio. Présente ce paragraphe sous forme de bullet point.</li>
+                    <li>Résume clairement et précisément les grands moments de la vie de la personne : dates précises de naissance et de décès, lieux exacts, réalisations majeures, nombre exact d'œuvres publiées (livres, albums, films, peintures...), distinctions importantes et événements marquants.</li>
+                    <li>Ce paragraphe doit être synthétique, factuel et chiffré. Évite absolument les formulations vagues telles que "plusieurs", "quelques", "de nombreux".</li>
                 </ul>
+                
+                <h4>2. Paragraphes suivants (développement détaillé) :</h4>
+                <ul>
+                    <li>Développe les grandes étapes de la vie et de la carrière de la personne en autant de paragraphes qu'il est nécessaire.</li>
+                    <li>Chaque paragraphe doit être idéalement factuel et chiffré. Évite systématiquement les formulations imprécises ou vagues.</li>
+                    <li>Utilise des intertitres précis, pertinents et compatibles SEO pour guider la lecture. Ces intertitres doivent correspondre à des jalons biographiques spécifiques, propres à la personne concernée.</li>
+                    <li><strong>Pas de majuscule aux intertitres, SAUF la première lettre du premier mot.</strong> Ex : "Le début de sa carrière musicale".</li>
+                </ul>
+                
+                <h4>3. Œuvres principales (obligatoire pour les artistes) :</h4>
+                <ul>
+                    <li>Si la biographie concerne un artiste (écrivain, musicien, peintre, acteur...), tu dois impérativement mentionner clairement et précisément ses œuvres principales (titres exacts, dates précises de publication ou de sortie, nombre exact d'œuvres majeures).</li>
+                </ul>
+                
+                <h3>Règles rédactionnelles strictes :</h3>
+                <ul>
+                    <li>Indique systématiquement la nationalité dans la fonction (ex : acteur français, chanteuse américaine).</li>
+                    <li>Précise toujours les dates et lieux exacts de naissance et de décès.</li>
+                    <li>Reste strictement factuel : aucun parti pris, aucun jugement personnel.</li>
+                    <li>Évite tout adjectif subjectif (ex : "doué", "talentueux"), sauf si le jugement est explicitement attribué à une source précise (ex : "Selon Le Point, il était doué...").</li>
+                    <li>Utilise exclusivement le présent de vérité générale ou le passé composé/passé simple selon les contextes. <strong>Ne jamais employer le futur.</strong></li>
+                </ul>
+                
+                <h3>Citations :</h3>
+                <ul>
+                    <li>Si tu inclus des citations, tu dois impérativement les sourcer clairement dans le corps du texte (ex : "citation" selon Le Monde, 12 mars 2020).</li>
+                </ul>
+                
+                <h3>Maillage interne et référencement :</h3>
+                <ul>
+                    <li>Assure un maillage interne pertinent (entrant et sortant) avec les pages de taxonomie adaptées.</li>
+                    <li>Aucun lien hypertexte vers un site officiel ou vers un compte de réseau social.</li>
+                    <li>Aucun rebond dans le texte.</li>
+                </ul>
+                
+                <h3>Paragraphe "Sources" (obligatoire en fin de biographie) :</h3>
+                <ul>
+                    <li>Termine chaque biographie par un paragraphe intitulé <strong>"Sources"</strong>.</li>
+                    <li>Liste sous forme de bullet points les documents utilisés en précisant clairement :
+                        <ul>
+                            <li>Le titre exact du document</li>
+                            <li>La date précise du document</li>
+                            <li>Le média d'origine</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h3>Cas particulier : aide à la rédaction d'une biographie (réponse à des questions précises) :</h3>
+                <ul>
+                    <li>Si la demande n'est pas de rédiger directement une biographie complète, mais plutôt de fournir une aide à la rédaction (réponse à une question précise, recherche d'information complémentaire...), alors présente systématiquement les informations sous forme de paragraphe détaillé, rédigé, fluide et précis. <strong>Évite absolument les listes ou bullet points dans ce cas précis.</strong></li>
+                </ul>
+                
+                <p>Respecte scrupuleusement ces consignes pour garantir une biographie claire, rigoureuse, précise et conforme aux attentes éditoriales de Radio France.</p>
             </div>
         </div>
     </div>
@@ -489,6 +598,10 @@
         
         function closeInstructionsModal() {
             document.getElementById("instructionsModal").style.display = "none";
+        }
+        
+        function openTestsDocument() {
+            window.open("https://rfonline.sharepoint.com/:w:/r/sites/UG-PRIV-DirectionDeLaDocumentation/_layouts/15/Doc.aspx?sourcedoc=%7B3FB4F549-4388-44FE-9A48-F9301C0F8FF4%7D&file=Tests%20des%20prompts.docx&fromShare=true&action=default&mobileredirect=true", "_blank");
         }
         
         // Fermer la modale si on clique en dehors
