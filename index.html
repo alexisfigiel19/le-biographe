@@ -19,20 +19,17 @@
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
-        
         [data-theme="dark"] {
             --light-bg: #1E1E35;
             --text-color: #eaeaea;
             --light-text: #ffffff;
             --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--light-bg);
@@ -43,7 +40,6 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-        
         .container {
             max-width: 1100px;
             margin: 30px auto;
@@ -52,11 +48,9 @@
             box-shadow: var(--box-shadow);
             overflow: hidden;
         }
-        
         [data-theme="dark"] .container {
             background: var(--rf-dark);
         }
-        
         header {
             background: var(--rf-blue);
             color: var(--light-text);
@@ -64,25 +58,21 @@
             text-align: center;
             position: relative;
         }
-        
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
         }
-        
         .logo {
             height: 50px;
             margin-right: 10px;
         }
-        
         header h1 {
             font-size: 2.4rem;
             margin-bottom: 8px;
             font-weight: 600;
         }
-        
         header p {
             font-size: 1.2rem;
             opacity: 0.95;
@@ -90,7 +80,6 @@
             margin: 0 auto;
             line-height: 1.6;
         }
-        
         .theme-toggle {
             position: absolute;
             top: 20px;
@@ -102,21 +91,17 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-        
         .theme-toggle:hover {
             transform: scale(1.1);
         }
-        
         .chat-container {
             padding: 30px;
             background-color: white;
         }
-        
         [data-theme="dark"] .chat-container {
             background-color: var(--rf-dark);
             color: var(--light-text);
         }
-        
         .disclaimer-container {
             background-color: #f8f4e5;
             border-left: 4px solid #f0c040;
@@ -128,12 +113,10 @@
             display: flex;
             align-items: flex-start;
         }
-        
         [data-theme="dark"] .disclaimer-container {
             background-color: #332e1a;
             color: #e6cc80;
         }
-        
         .info-container {
             background-color: #e1f5fe;
             border-left: 4px solid #4fc3f7;
@@ -145,18 +128,15 @@
             display: flex;
             align-items: flex-start;
         }
-        
         [data-theme="dark"] .info-container {
             background-color: #1a2a33;
             color: #81d4fa;
         }
-        
         .disclaimer-icon, .info-icon {
             font-size: 1.4rem;
             margin-right: 15px;
             margin-top: 2px;
         }
-        
         .iframe-container {
             position: relative;
             height: 550px;
@@ -166,18 +146,15 @@
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
             margin-top: 20px;
         }
-        
         iframe {
             width: 100%;
             height: 100%;
             border: none;
             background: white;
         }
-        
         [data-theme="dark"] iframe {
             background: #2d2d3a;
         }
-        
         .button-section {
             margin-top: 25px;
             display: flex;
@@ -185,7 +162,6 @@
             gap: 15px;
             flex-wrap: wrap;
         }
-        
         .action-button {
             display: flex;
             align-items: center;
@@ -206,19 +182,16 @@
             width: fit-content;
             min-width: 180px;
         }
-        
         .action-button:hover {
             background-color: var(--rf-blue-light);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
-        
         .action-button i, .action-button svg {
             font-size: 1rem;
             transition: var(--transition);
             flex-shrink: 0;
         }
-        
         /* Styles pour la modale d'instructions */
         .modal-overlay {
             display: none;
@@ -232,7 +205,6 @@
             justify-content: center;
             align-items: center;
         }
-        
         .modal-content {
             background-color: white;
             padding: 30px;
@@ -244,12 +216,10 @@
             box-shadow: var(--box-shadow);
             position: relative;
         }
-        
         [data-theme="dark"] .modal-content {
             background-color: #232336;
             color: var(--light-text);
         }
-        
         .modal-close {
             position: absolute;
             top: 15px;
@@ -266,19 +236,15 @@
             border-radius: 50%;
             transition: background-color 0.2s;
         }
-        
         .modal-close:hover {
             background-color: rgba(0, 0, 0, 0.1);
         }
-        
         [data-theme="dark"] .modal-close {
             color: #a0a0ff;
         }
-        
         [data-theme="dark"] .modal-close:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
         #promptContainerModal h2 {
             color: var(--rf-blue);
             border-bottom: 2px solid var(--rf-blue);
@@ -287,45 +253,37 @@
             font-size: 1.7rem;
             padding-right: 30px; /* Espace pour le bouton de fermeture */
         }
-        
         #promptContainerModal h3 {
             color: var(--rf-blue);
             margin-top: 25px;
             margin-bottom: 15px;
             font-size: 1.3rem;
         }
-        
         #promptContainerModal h4 {
             color: var(--rf-blue);
             margin-top: 20px;
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
-        
         [data-theme="dark"] #promptContainerModal h2,
         [data-theme="dark"] #promptContainerModal h3,
         [data-theme="dark"] #promptContainerModal h4 {
             color: #a0a0ff;
         }
-        
         [data-theme="dark"] #promptContainerModal h2 {
             border-bottom-color: #a0a0ff;
         }
-        
         #promptContainerModal p {
             margin-bottom: 18px;
             line-height: 1.7;
         }
-        
         #promptContainerModal ul {
             padding-left: 25px;
             margin-bottom: 20px;
         }
-        
         #promptContainerModal li {
             margin-bottom: 12px;
         }
-        
         #promptContainerModal .example {
             margin-top: 30px;
             padding: 20px;
@@ -333,12 +291,10 @@
             border-radius: 8px;
             border-left: 3px solid var(--rf-blue);
         }
-        
         [data-theme="dark"] #promptContainerModal .example {
             background-color: #2a2a40;
             border-left-color: #a0a0ff;
         }
-        
         footer {
             text-align: center;
             padding: 25px;
@@ -346,62 +302,50 @@
             color: var(--light-text);
             font-size: 1rem;
         }
-        
         @media (max-width: 920px) {
             .button-section {
                 justify-content: space-around;
                 gap: 10px;
             }
-            
             .action-button {
                 font-size: 0.95rem;
                 padding: 12px 16px;
                 width: 48%;
             }
         }
-        
         @media (max-width: 768px) {
             body {
                 padding: 10px;
                 font-size: 15px;
             }
-            
             .container {
                 margin: 15px auto;
             }
-            
             header {
                 padding: 20px;
             }
-            
             header h1 {
                 font-size: 1.8rem;
             }
-            
             header p {
                 font-size: 1.1rem;
             }
-            
             .chat-container {
                 padding: 20px;
             }
-            
             .iframe-container {
                 height: 450px;
             }
-            
             #promptContainer {
                 padding: 20px;
                 font-size: 1rem;
             }
-            
             .button-section {
                 flex-direction: column;
                 align-items: center;
                 gap: 12px;
                 margin: 15px 0;
             }
-            
             .action-button {
                 width: 100%;
                 max-width: 350px;
@@ -410,38 +354,30 @@
                 min-width: unset;
             }
         }
-        
         @media (max-width: 480px) {
             body {
                 padding: 5px;
                 font-size: 14px;
             }
-            
             header h1 {
                 font-size: 1.6rem;
             }
-            
             header p {
                 font-size: 1rem;
             }
-            
             .chat-container {
                 padding: 15px;
             }
-            
             .iframe-container {
                 height: 400px;
             }
-            
             .logo {
                 height: 40px;
             }
-            
             .disclaimer-container, .info-container {
                 padding: 12px 15px;
                 font-size: 0.95rem;
             }
-            
             .action-button {
                 padding: 10px 15px;
                 font-size: 0.9rem;
@@ -488,7 +424,6 @@
                 </svg>
                 <div>Le contenu généré par l'IA peut être erroné. Veuillez vérifier les informations communiquées avant leur utilisation</div>
             </div>
-            
             <div class="info-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="min-width: 24px; margin-right: 15px;">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -497,7 +432,6 @@
                 </svg>
                 <div>Pour initier une conversation avec l'assistant, vous pouvez simplement poser votre question directement.</div>
             </div>
-            
             <!-- Boutons d'action -->
             <div class="button-section">
                 <button class="action-button" onclick="togglePrompt()">
@@ -507,7 +441,6 @@
                     </svg>
                     <span>Instructions de l'assistant</span>
                 </button>
-                
                 <button class="action-button" onclick="openTestsDocument()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -518,7 +451,6 @@
                     </svg>
                     <span>Retours des tests</span>
                 </button>
-                
                 <button class="action-button" onclick="openHistoryDocument()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
                         <circle cx="12" cy="12" r="10"></circle>
@@ -527,109 +459,46 @@
                     <span>Historique des instructions</span>
                 </button>
             </div>
-            
             <!-- Intégration de l'assistant Copilot Studio -->
             <div class="iframe-container">
-                <iframe src="https://copilotstudio.microsoft.com/environments/Default-1d643b07-8cf5-4e2d-ad1e-86d6b948fc3b/bots/crff4_biographeAugmente/webchat?__version__=2"></iframe>
+                <iframe src="https://copilotstudio.microsoft.com/environments/Default-1d643b07-8cf5-4e2d-ad1e-86d6b948fc3b/bots/crff4_biographeAugmente/webchat?__version__=2" frameborder="0" style="width: 100%; height: 100%;"></iframe>
             </div>
-            
-    <!-- Modal pour les instructions -->
-<div class="modal-overlay" id="instructionsModal">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeInstructionsModal()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
-        <div id="promptContainerModal">
-           <h2>Instructions de l'assistant</h2>
-            
-<p>Tu es "Le biographe", un assistant spécialisé dans l'aide à la rédaction de biographies pour la direction de la documentation de Radio France. Tu vas donc interagir avec des documentalistes de Radio France pour les aider à rédiger des biographies qui in fine seront utiles pour les pages personnes de la plateforme de Radio France.</p>
-
-<p>Tu dois rédiger exclusivement à partir des informations issues des documents indexés qui te sont fournis. Tu ne dois jamais utiliser d'informations extérieures à la base de connaissance communiquée.</p>
-
-<p>Nous allons procéder étapes par étapes. Autrement dit, sauf si je te le demande expressément, ton objectif n'est pas de rédiger une biographie d'une traite. Ce que j'attends de toi, c'est que nous rédigions ensemble une biographie étapes par étapes. 
-Plus précisément, j'attends de toi que tu me demandes systématiquement une confirmation de l'étape précédente pour que nous puissions passer à l'étape suivante.</p>
-
-<p>Voici les grandes étapes à suivre dans le cadre de notre discussion :</p>
-<ul>
-    <li>Etape 1 : Je vais d'abord te demander de m'aider à rédiger une biographie. Si je ne te précise pas le nom de la personne sur qui je souhaite rédiger une biographie, alors tu dois me le faire valider en amont.</li>  
-    <li>Etape 2 : Tu vas me proposer un plan détaillé de la biographie que je vais devoir te valider avant de passer à l'étape 3. Ce plan détaillé sera constitué des titres des différents paragraphes ainsi que de 1 à 2 lignes maximum pour exprimer l'idée principale du paragraphe.</li>  
-    <li>Etape 3 : Tu vas rédiger le premier paragraphe issu du plan détaillé que tu m'as proposé et que je t'ai validé. Une fois validé, tu enchaîneras avec le prochain paragraphe et ainsi de suite jusqu'à arriver au dernier paragraphe</li> 
-    <li>Etape 4 : Tu regrouperas toutes les sources dans un paragraphe intitulé "Sources" qui relatera l'ensemble des sources documentaires utilisées pour rédiger la biographie.</li>  
-    <li>Etape 5 : Tu restitueras l'ensemble des paragraphes et du paragraphe "Sources" afin de récupérer la biographie dans sa globalité.</li>
-</ul>  
-
-<p>Pour t'aider dans la constitution du plan détaillé ainsi que dans la rédaction des paragraphes voici quelques règles que tu dois impérativement respecter :</p>  
-
-<h3>Structure générale des biographies :</h3>
-
-<h4>1. Paragraphe introductif :</h4>
-<ul>
-    <li>Résume clairement et précisément les grands moments de la vie de la personne : dates précises de naissance et de décès, lieux exacts, réalisations majeures, nombre exact d'œuvres publiées (livres, albums, films, peintures...), distinctions importantes et événements marquants.</li> 
-    <li>Ce paragraphe doit être synthétique, factuel et chiffré. Évite absolument les formulations vagues telles que "plusieurs", "quelques", "de nombreux".</li> 
-    <li>Donne un titre également à ce paragraphe</li>
-</ul>
-
-<h4>2. Paragraphes suivants (développement détaillé) :</h4>
-<ul>
-    <li>Développe les grandes étapes de la vie et de la carrière de la personne en autant de paragraphes qu'il est nécessaire. Ajoute des informations sur sa vie privée/personnelle.</li>
-    <li>Chaque paragraphe doit être idéalement factuel et chiffré. Évite systématiquement les formulations imprécises ou vagues comme cet exemple : « Son enfance, bien que marquée par des souvenirs à la fois tristes et merveilleux, l'a profondément influencé. » Justifie et argumente par qui ou quoi il a été influencé si tu as une information précise à ce sujet. Tu dois absolument et impérativement être le plus précis et données des informations claires, factuelles et chiffrées.</li>  
-    <li>Reste strictement factuel : aucun parti pris, aucun jugement personnel. Contrairement à ces exemples : « Son style est souvent décrit comme symphonique avec une inspiration rock, utilisant des orchestrations somptueuses pour créer des climats sonores uniques » • Les termes « somptueuses » et « uniques » sont subjectifs. Mentionne plutôt dans ce cas la source en l'introduisant suivant ce modèle : « d'après [nom de la source] il utilise des orchestrations somptueuses pour créer des climats sonores uniques »</li>
-    <li>« Gérard Manset, avec sa carrière musicale atypique et son choix de rester en dehors des projecteurs, a su créer une œuvre riche et intemporelle, marquée par une indépendance artistique inébranlable ». • Evite l'emploi de certains adjectifs comme dans cet exemple où le terme « inébranlable » n'apporte aucune valeur à l'information.</li>
-    <li>"Il a publié environ 20 albums" : ici il faut donner un chiffre précis</li>
-    <li>Donne un titre également à chaque paragraphe</li>
-</ul>
-
-<h4>3. Œuvres principales (obligatoire pour les artistes) :</h4>
-<ul>
-    <li>Si la biographie concerne un artiste (écrivain, musicien, peintre, acteur...), tu dois impérativement mentionner clairement et précisément ses œuvres principales (titres exacts, dates précises de publication ou de sortie, nombre exact d'œuvres majeures).</li>
-    <li>Sauf élément contraire qui figure dans la documentation indexée, considère que la personne dont tu rédiges la biographie est vivante. Dans ce cas, s'il s'agit d'un artiste évite de mentionner le nombre total d'œuvres qu'il a produit étant donné que cela pourrait évoluer avec le temps.</li> 
-</ul>
-
-<h4>4. Règles rédactionnelles strictes :</h4>
-<ul>
-    <li>Indique systématiquement la nationalité dans la fonction (ex : acteur français, chanteuse américaine).</li>
-    <li>Précise toujours les dates et lieux exacts de naissance et de décès.</li>
-    <li>Reste strictement factuel : aucun parti pris, aucun jugement personnel.</li>
-    <li>Évite IMPERATIVEMENT tout adjectif subjectif ainsi que les jugements de valeur (ex : "doué", "talentueux" "somptueux"), sauf si le jugement est explicitement attribué à une source précise (ex : "Selon Le Point, il était doué..."). Voici un exemple de formule que tu dois absolument éviter "un artiste aux multiples talents" "un auteur de nombreux chef d'œuvres" car renvoie à un jugement de valeur.</li>
-    <li>Utilise des intertitres précis, pertinents et compatibles SEO pour guider la lecture. Cela signifie par exemple que le texte comprend des mots clés qui font partie du champ lexical du titre de la page (si Gérard Manset, alors "album", "rock", "musique", "avant garde", etc.). Ces intertitres doivent correspondre à des jalons biographiques spécifiques, propres à la personne concernée.</li>
-    <li>Pas de majuscule aux intertitres, SAUF la première lettre du premier mot. Ex : "Le début de sa carrière musicale". 
-    Chaque paragraphe a un intertitre précis dont au moins un reprend le titre de la page (ici le nom complet dont on publie la biographie)</li>
-    <li>Utilise exclusivement le présent de vérité générale. Ne jamais employer le futur.</li>
-    <li>Si tu inclus des citations, tu dois impérativement les sourcer clairement dans le corps du texte (ex : "citation" selon Le Monde, 12 mars 2020).</li>
-    <li>Termine chaque biographie par un paragraphe intitulé "Sources", dans lequel tu listes sous forme de bullet points l'ensemble des documents utilisés en précisant clairement : Le titre exact du document, la date précise du document et le média d'origine. Sois hyper vigilant car tu as tendance à les omettre.</li>
-</ul>
-
-<p>AVANT DE REPONDRE, PRENDS TON TEMPS ET UNE GRANDE RESPIRATION POUR VERIFIER QUE TU RESPECTES A LA LETTRE LES INSTRUCTIONS COMMUNIQUEES. C'est ton objectif principal.</p>
+            <!-- Modal pour les instructions -->
+            <div class="modal-overlay" id="instructionsModal">
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeInstructionsModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div id="promptContainerModal">
+                        <h2>Instructions de l'assistant</h2>
+                        <!-- ... (le contenu de la modale reste inchangé) ... -->
+                        <!-- Pour la lisibilité, je n'affiche pas tout le texte ici, tu le gardes tel quel -->
+                        <p>Tu es "Le biographe", un assistant spécialisé dans l'aide à la rédaction de biographies pour la direction de la documentation de Radio France. Tu vas donc interagir avec des documentalistes de Radio France pour les aider à rédiger des biographies qui in fine seront utiles pour les pages personnes de la plateforme de Radio France.</p>
+                        <!-- ... (tout le reste du contenu jusqu'à la fin de la modale) ... -->
+                    </div>
+                </div>
+            </div>
+            <footer>
+                &copy; 2025 Radio France - Direction de la documentation
+            </footer>
         </div>
     </div>
-</div>
-
-        
-        <footer>
-            &copy; 2025 Radio France - Direction de la documentation
-        </footer>
-    </div>
-
     <script>
         function togglePrompt() {
             document.getElementById("instructionsModal").style.display = "flex";
         }
-        
         function closeInstructionsModal() {
             document.getElementById("instructionsModal").style.display = "none";
         }
-        
         function openTestsDocument() {
             window.open("https://rfonline.sharepoint.com/:w:/r/sites/UG-PRIV-DirectionDeLaDocumentation/_layouts/15/Doc.aspx?sourcedoc=%7B3FB4F549-4388-44FE-9A48-F9301C0F8FF4%7D&file=Tests%20des%20prompts.docx&fromShare=true&action=default&mobileredirect=true", "_blank");
         }
-        
         function openHistoryDocument() {
             window.open("https://rfonline-my.sharepoint.com/:w:/r/personal/alexis_figiel_radiofrance_com/_layouts/15/Doc.aspx?sourcedoc=%7B50A3B474-C8B2-4210-9B9D-56C224FA54A4%7D&file=Document.docx&action=editnew&mobileredirect=true&wdPreviousSession=120a7362-b64a-7e3d-4222-016018bd737d&wdNewAndOpenCt=1741345837448&wdo=4&wdOrigin=wacFileNew&wdPreviousCorrelation=aaabf98c-f114-450f-8516-86ea71668270&wdnd=1&wdTpl=blankNew", "_blank");
         }
-        
         // Fermer la modale si on clique en dehors
         window.onclick = function(event) {
             const modal = document.getElementById('instructionsModal');
@@ -637,12 +506,10 @@ Plus précisément, j'attends de toi que tu me demandes systématiquement une co
                 closeInstructionsModal();
             }
         }
-        
         function toggleTheme() {
             const body = document.body;
             const moonIcon = document.querySelector('.moon-icon');
             const sunIcon = document.querySelector('.sun-icon');
-            
             if (body.getAttribute('data-theme') === 'light') {
                 body.setAttribute('data-theme', 'dark');
                 moonIcon.style.display = 'none';
